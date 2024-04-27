@@ -566,6 +566,9 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         tsserver = {},
         --
+        --
+        ruff = {},
+        prettier = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -642,11 +645,35 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'ruff' },
+        python = { 'ruff_fix', 'ruff_fmt' },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        javascript = { { 'prettierd', 'prettier' } },
+        javascript = { 'prettier' },
+        javascriptreact = { 'prettier' },
+        typescript = { 'prettier' },
+        typescriptreact = { 'prettier' },
+      },
+      -- for some reason, ruff does not work out of the box. Bellow is a copied config for github repo
+      formatters = {
+        ruff_fmt = {
+          -- https://github.com/stevearc/conform.nvim/blob/master/lua/conform/formatters/ruff_format.lua
+          command = 'ruff',
+          args = {
+            'format',
+            '--force-exclude',
+            '--stdin-filename',
+            '$FILENAME',
+            '-',
+          },
+          stdin = true,
+          -- https://github.com/stevearc/conform.nvim/blob/4660e534bf7678ee0f85879aa75fdcb6855612c2/lua/conform/util.lua#L50
+          -- cwd = require('conform.util').root_file {
+          --   'pyproject.toml',
+          --   'ruff.toml',
+          --   '.ruff.toml',
+          -- },
+        },
       },
     },
   },
