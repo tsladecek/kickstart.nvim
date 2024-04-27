@@ -255,8 +255,20 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
-      current_line_blame = true,
     },
+    config = function()
+      require('gitsigns').setup()
+      vim.keymap.set('n', '<leader>gl', require('gitsigns').blame_line, { desc = '[G]it B[L]ame line' })
+      vim.keymap.set('n', '<leader>ghc', require('gitsigns').preview_hunk, { desc = '[G]it [H]unk [C]urrent' })
+
+      vim.keymap.set('n', '<leader>ghn', function()
+        require('gitsigns').nav_hunk('next', { preview = true })
+      end, { desc = '[G]it [H]unk [N]ext' })
+
+      vim.keymap.set('n', '<leader>ghp', function()
+        require('gitsigns').nav_hunk('prev', { preview = true })
+      end, { desc = '[G]it [H]unk [P]revious' })
+    end,
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
@@ -288,14 +300,10 @@ require('lazy').setup({
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>l'] = { name = '[L]ist', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
+        ['<leader>gh'] = { name = '[G]it [H]unk', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-        -- ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
       }
-      -- visual mode
-      -- require('which-key').register({
-      --   ['<leader>h'] = { 'Git [H]unk' },
-      -- }, { mode = 'v' })
     end,
   },
 
@@ -383,7 +391,9 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch/List [R]esume' })
+      vim.keymap.set('n', '<leader>sc', builtin.command_history, { desc = '[S]earch [C]ommand history' })
 
+      vim.keymap.set('n', '<leader>lk', builtin.keymaps, { desc = '[L]ist [K]eymaps' })
       vim.keymap.set('n', '<leader>l.', builtin.oldfiles, { desc = '[L]ist Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>lb', builtin.buffers, { desc = '[L]ist existing [B]uffers' })
 
@@ -734,6 +744,7 @@ require('lazy').setup({
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
         mapping = cmp.mapping.preset.insert {
           -- Select the [n]ext item
+
           ['<C-n>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
           ['<C-p>'] = cmp.mapping.select_prev_item(),
