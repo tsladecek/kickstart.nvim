@@ -110,6 +110,10 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
@@ -392,6 +396,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch/List [R]esume' })
       vim.keymap.set('n', '<leader>sc', builtin.command_history, { desc = '[S]earch [C]ommand history' })
+      vim.keymap.set('n', '<leader>sv', builtin.vim_options, { desc = '[S]earch [V]im Options' })
 
       vim.keymap.set('n', '<leader>lk', builtin.keymaps, { desc = '[L]ist [K]eymaps' })
       vim.keymap.set('n', '<leader>l.', builtin.oldfiles, { desc = '[L]ist Recent Files ("." for repeat)' })
@@ -906,7 +911,7 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
