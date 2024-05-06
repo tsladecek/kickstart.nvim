@@ -582,7 +582,6 @@ require('lazy').setup({
         tsserver = {},
         --
         --
-        ruff = {},
         prettier = {},
 
         lua_ls = {
