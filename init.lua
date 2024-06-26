@@ -165,6 +165,8 @@ vim.opt.scrolloff = 15
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- codeium
+-- vim.g.codeium_enabled = false
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
@@ -305,6 +307,7 @@ require('lazy').setup({
         ['<leader>l'] = { name = '[L]ist', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
         ['<leader>gh'] = { name = '[G]it [H]unk', _ = 'which_key_ignore' },
+        ['gp'] = { name = '[g]oto [p]review', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
       }
@@ -368,11 +371,12 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          file_ignore_patterns = { 'node_modules', 'venv' },
+          mappings = {
+            i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
@@ -571,7 +575,14 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         clangd = {},
-        pyright = {},
+        basedpyright = {
+          settings = {
+            basedpyright = {
+              typeCheckingMode = 'standard',
+            },
+          },
+        },
+        -- pyright = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -583,6 +594,7 @@ require('lazy').setup({
         --
         --
         prettier = {},
+        xmlformatter = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -667,6 +679,7 @@ require('lazy').setup({
         javascriptreact = { 'prettier' },
         typescript = { 'prettier' },
         typescriptreact = { 'prettier' },
+        xml = { 'xmlformat' },
       },
       -- for some reason, ruff does not work out of the box. Bellow is a copied config for github repo
       formatters = {
