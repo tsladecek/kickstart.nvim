@@ -4,7 +4,7 @@ return {
     config = function()
       require('gitsigns').setup {
         signs = {
-          add = { text = 'A' },
+          add = { text = '+' },
           change = { text = '~' },
           delete = { text = '_' },
           topdelete = { text = '‾' },
