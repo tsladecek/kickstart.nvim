@@ -7,14 +7,14 @@ return {
   init = function()
     vim.keymap.set('x', '<leader>Re', function()
       require('refactoring').refactor 'Extract Function'
-    end, { desc = '[e]xtract function' })
+    end, { desc = '[e]xtract to function' })
     vim.keymap.set('x', '<leader>Rf', function()
       require('refactoring').refactor 'Extract Function To File'
     end, { desc = 'extract function to [f]ile' })
     -- Extract function supports only visual mode
     vim.keymap.set('x', '<leader>Rv', function()
       require('refactoring').refactor 'Extract Variable'
-    end, { desc = 'extract [v]ariable' })
+    end, { desc = 'extract to [v]ariable' })
     -- Extract variable supports only visual mode
     vim.keymap.set('n', '<leader>RI', function()
       require('refactoring').refactor 'Inline Function'
